@@ -132,7 +132,7 @@ const MyAccountScreen = () => {
 
       <div className='cards'>
         {allTeamsData.map((item) => (
-          <div class='card' key={item._id}>
+          <div className='card' key={item._id}>
             <img src={item.image} alt={item.name} />
             <h4>{item.name}</h4>
             <span>

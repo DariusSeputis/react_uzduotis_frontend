@@ -62,6 +62,19 @@ const LoginScreen = () => {
       signupPasswordInputRef.current.focus();
       return;
     }
+    if (
+      signupPassword ||
+      signupConfirmPassword ||
+      signupName ||
+      signupEmail ||
+      signupImageUrl
+    ) {
+      setSignupMessage('Fill all inputs you lazy #$%*%^&');
+      setSignupPassword('');
+      setSignupConfirmPassword('');
+      signupPasswordInputRef.current.focus();
+      return;
+    }
 
     axios
       .post('http://127.0.0.1:5000/teams/signup', {
@@ -88,52 +101,61 @@ const LoginScreen = () => {
 
   return (
     <main>
-      <h2>Login</h2>
-      <form onSubmit={loginTeam}>
-        <label>Email</label>
-        <input
-          type='email'
-          ref={loginEmailInputRef}
-          onChange={(e) => setLoginEmail(e.target.value)}
-        />
-        <label>Password</label>
-        <input
-          type='password'
-          onChange={(e) => setLoginPassword(e.target.value)}
-        />
-        <input type='submit' value='Log in' />
-      </form>
-      <p>{loginMessage}</p>
-      <h2>Singup your team</h2>
-      <form onSubmit={signupTeam}>
-        <label>Team Name</label>
-        <input type='text' onChange={(e) => setSignupName(e.target.value)} />
-        <label>Email</label>
-        <input
-          type='email'
-          onChange={(e) => setSignupEmail(e.target.value)}
-          ref={signUpEmailInputRef}
-        />
-        <label>Password</label>
-        <input
-          type='password'
-          onChange={(e) => setSignupPassword(e.target.value)}
-          ref={signupPasswordInputRef}
-        />
-        <label>Confirm Password</label>
-        <input
-          type='password'
-          onChange={(e) => setSignupConfirmPassword(e.target.value)}
-        />
-        <label>Team Logo url</label>
-        <input
-          type='text'
-          value={signupImageUrl}
-          onChange={(e) => setSignupImageUrl(e.target.value)}
-        />
-        <input type='submit' value='Signup' />
-      </form>
-      <p>{signupMessage}</p>
+      <div className='loginScreenWrap'>
+        <div className='loginWrap'>
+          <h2>Login</h2>
+          <form className='loginForm' onSubmit={loginTeam}>
+            <label>Email</label>
+            <input
+              type='email'
+              ref={loginEmailInputRef}
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <label>Password</label>
+            <input
+              type='password'
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+            <input type='submit' value='Log in' />
+          </form>
+          <p>{loginMessage}</p>
+        </div>
+        <div className='signupWrap'>
+          <h2>Singup your team</h2>
+          <form className='signupForm' onSubmit={signupTeam}>
+            <label>Team Name</label>
+            <input
+              type='text'
+              onChange={(e) => setSignupName(e.target.value)}
+            />
+            <label>Email</label>
+            <input
+              type='email'
+              onChange={(e) => setSignupEmail(e.target.value)}
+              ref={signUpEmailInputRef}
+            />
+            <label>Password</label>
+            <input
+              type='password'
+              onChange={(e) => setSignupPassword(e.target.value)}
+              ref={signupPasswordInputRef}
+            />
+            <label>Confirm Password</label>
+            <input
+              type='password'
+              onChange={(e) => setSignupConfirmPassword(e.target.value)}
+            />
+            <label>Team Logo url</label>
+            <input
+              type='text'
+              value={signupImageUrl}
+              onChange={(e) => setSignupImageUrl(e.target.value)}
+            />
+            <input type='submit' value='Signup' />
+          </form>
+          <p>{signupMessage}</p>
+        </div>
+      </div>
     </main>
   );
 };
