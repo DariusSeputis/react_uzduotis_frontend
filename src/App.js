@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+import ProtectedRoute from './components/ProtectedRoute';
+import HomeScreen from './screens/HomeScreen';
+import LoginScreen from './screens/LoginScreen';
+
+export const TeamContext = React.createContext();
 
 function App() {
+  const [teamInLocalStorage, setTeamInLocalStorage] = useState(
+    localStorage.getItem('team') ? true : false
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TeamContext.Provider
+        value={{ teamInLocalStorage, setTeamInLocalStorage }}
+      >
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path='/' component={HomeScreen} />
+            <Route path='/login' component={LoginScreen} />
+            <Route path='/my-account' component={ProtectedRoute} />
+          </Switch>
+        </Router>
+        <Footer />
+      </TeamContext.Provider>
+    </>
   );
 }
 
